@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Notes Server</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quick Notes Saver</h1>
+        <form id="noteForm">
+            <label for="title">Note Title</label>
+            <input
+                type="text"
+                id="title"
+                placeholder="Enter note title"
+                required
+            >
+
+            <label for="content">Note Content</label>
+            <textarea
+                id="content"
+                placeholder="Write your note here..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                Save Note
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <a href="/notes.html">
+            View All Notes
+        </a>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

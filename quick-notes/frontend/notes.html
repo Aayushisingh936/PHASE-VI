@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Notes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>All Notes</h1>
+        <div id="notesList"></div>
+        <a href="/">
+            ← Back to Add Note
+        </a>
+
+    </div>
+
+    <script>
+    const notesList = document.getElementById("notesList");
+    async function loadNotes() {
+        try {
+            const response = await fetch("/notes");
+            const notes = await response.json();
+            if (notes.length === 0) {
+                notesList.innerHTML =
+                "<p>No notes available.</p>";
+                return;
+            }
+            notesList.innerHTML = "";
+            notes.forEach((note) => {
+                const noteCard = document.createElement("div");
+                noteCard.classList.add("note-card");
+                noteCard.innerHTML = `
+                <h2>${note.title}</h2>
+                <p>${note.content}</p>
+                <small>
+                    Created:${new Date(note.createdAt).toLocaleString()}
+                </small>
+                 `;
+                 notesList.appendChild(noteCard);
+                });
+
+            } catch (error) {
+                notesList.innerHTML = "<p>Unable to load notes.</p>";
+            }
+        }
+        loadNotes();
+    </script>
+</body>
+</html>

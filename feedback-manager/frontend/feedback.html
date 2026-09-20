@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>All Feedback | Student Feedback Manager</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>All Student Feedback</h1>
+        <div id="feedbackList"></div>
+        <a href="/">
+            ← Back to Feedback Form
+        </a>
+
+    </div>
+    <script>
+    const feedbackList = document.getElementById("feedbackList");
+    async function loadFeedback() {
+        try {
+            const response = await fetch("/feedback");
+            const feedback = await response.json();
+            if (feedback.length === 0) {
+                feedbackList.innerHTML =
+                        "<p>No feedback submitted yet.</p>";
+                        return;
+                }
+                feedbackList.innerHTML = "";
+                feedback.forEach((item) => {
+                    const feedbackCard = document.createElement("div");
+                    feedbackCard.classList.add("feedback-card");
+                    feedbackCard.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>
+                        <strong>Rating:</strong>
+                            ${item.rating}/5
+                    </p>
+                    <p>
+                        <strong>Comment:</strong>
+                         ${item.comment}
+                    </p>
+                    <small>
+                        ${new Date(item.submissionDate).toLocaleString()}
+                    </small>
+                    `;
+                    feedbackList.appendChild(feedbackCard);
+                });
+            } catch (error) {
+                feedbackList.innerHTML =
+            "<p>Unable to load feedback.</p>";
+        }
+    }
+    loadFeedback();
+    </script>
+
+</body>
+</html>

@@ -20,15 +20,15 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 app.use("/progress", progressRoutes);
 
 mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
+    .then(() => {
         console.log("MongoDB connected successfully");
 
-        app.listen(process.env.PORT, () => {
-            console.log(`Server running on http://localhost:${process.env.PORT}`);
-        });
+        // app.listen(process.env.PORT, () => {
+        //     console.log(`Server running on http://localhost:${process.env.PORT}`);
+        // });
     })
     .catch((error) => {
         console.log("MongoDB connection failed:", error.message);
     });
 
-    
+export default app;
